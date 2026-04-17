@@ -60,8 +60,8 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="#hero" class="active">Trang Chủ</a></li>
-            <li><a href="#about">Về Trung Tâm</a></li>
+            <li><a href="index.html#hero" class="active">Trang Chủ</a></li>
+            <li><a href="index.html#about">Về Trung Tâm</a></li>
             <li class="dropdown">
               <a href="./index.html#services"
                 ><span>Bằng Lái</span>
@@ -101,9 +101,9 @@
                 </li>
               </ul>
             </li>
-            <li><a href="#portfolio">Hình Ảnh</a></li>
-            <li><a href="#team">Đội Ngũ</a></li>
-            <li><a href="#testimonials">Đánh Giá</a></li>
+            <li><a href="index.html#portfolio">Hình Ảnh</a></li>
+            <li><a href="index.html#features">Ưu Đãi</a></li>
+            <li><a href="index.html#testimonials">Đánh Giá</a></li>
             <li><a href="index.html#contact">Liên hệ</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -272,19 +272,24 @@
             <h4>Liên kết hữu ích</h4>
             <ul>
               <li>
-                <i class="bi bi-chevron-right"></i> <a href="#">Trang Chủ</a>
+                <i class="bi bi-chevron-right"></i>
+                <a href="index.html#hero">Trang Chủ</a>
               </li>
               <li>
-                <i class="bi bi-chevron-right"></i> <a href="#">Về Trung Tâm</a>
+                <i class="bi bi-chevron-right"></i>
+                <a href="index.html#about">Về Trung Tâm</a>
               </li>
               <li>
-                <i class="bi bi-chevron-right"></i> <a href="#">Bằng Lái</a>
+                <i class="bi bi-chevron-right"></i>
+                <a href="index.html#services">Bằng Lái</a>
               </li>
               <li>
-                <i class="bi bi-chevron-right"></i> <a href="#">Đánh Giá</a>
+                <i class="bi bi-chevron-right"></i>
+                <a href="index.html#testimonials">Đánh Giá</a>
               </li>
               <li>
-                <i class="bi bi-chevron-right"></i> <a href="#">Liên Hệ</a>
+                <i class="bi bi-chevron-right"></i>
+                <a href="index.html#contact">Liên Hệ</a>
               </li>
             </ul>
           </div>
@@ -293,18 +298,20 @@
             <h4>Dịch Vụ</h4>
             <ul>
               <li>
-                <i class="bi bi-chevron-right"></i> <a href="#">Nộp Hồ Sơ</a>
+                <i class="bi bi-chevron-right"></i>
+                <a href="service-details-ho-so.html">Nộp Hồ Sơ</a>
               </li>
               <li>
                 <i class="bi bi-chevron-right"></i>
-                <a href="#">Đội Ngũ Giáo Viên</a>
-              </li>
-              <li>
-                <i class="bi bi-chevron-right"></i> <a href="#">Đăng Ký CTV</a>
+                <a href="index.html#contact">Đăng Ký CTV</a>
               </li>
               <li>
                 <i class="bi bi-chevron-right"></i>
-                <a href="#">Trung Tâm Cam Kết</a>
+                <a href="index.html#portfolio">Hình Ảnh Trung Tâm</a>
+              </li>
+              <li>
+                <i class="bi bi-chevron-right"></i>
+                <a href="index.html#features">Ưu Đãi</a>
               </li>
             </ul>
           </div>
@@ -315,11 +322,7 @@
               Đăng ký nộp hồ sơ ngay để được tư vấn lộ trình học cũng như những
               thông tin mới nhất về lịch thi và tin tức mới!
             </p>
-            <form
-              action="forms/newsletter.php"
-              method="post"
-              class="php-email-form"
-            >
+            <form id="newsletter-form" class="php-email-form">
               <div class="newsletter-form">
                 <input type="email" name="email" /><input
                   type="submit"
@@ -364,7 +367,7 @@
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -374,5 +377,37 @@
 
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function () {
+        emailjs.init("IASPcHderBkeqQmkQ");
+      })();
+      document
+        .getElementById("newsletter-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const form = this;
+          const loading = form.querySelector(".loading");
+          const success = form.querySelector(".sent-message");
+          const errorMsg = form.querySelector(".error-message");
+
+          loading.style.display = "block";
+
+          emailjs.sendForm("service_5rri3ca", "template_a1t89e5", form).then(
+            function () {
+              loading.style.display = "none";
+              success.style.display = "block";
+            },
+            function (error) {
+              loading.style.display = "none";
+              errorMsg.innerHTML = "Đăng ký thất bại!";
+              errorMsg.style.display = "block";
+              console.log("ERROR:", error);
+              alert(JSON.stringify(error));
+            },
+          );
+        });
+    </script>
   </body>
 </html>
